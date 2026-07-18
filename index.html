@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA Permit Prep — Learner's Permit Practice</title>
+<meta name="description" content="Study guide and realistic practice exam for the California DMV learner's permit test.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a4fb4'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='52' font-weight='800' fill='white' text-anchor='middle'%3ECA%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-badge">CA</span>
+    <div>
+      <div class="brand-title">Permit Prep</div>
+      <div class="brand-sub">California DMV Learner's Permit Trainer</div>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-view="home">Home</button>
+    <button class="tab" data-view="study">Study Guide</button>
+    <button class="tab" data-view="signs">Signs</button>
+    <button class="tab" data-view="exam">Practice Exam</button>
+    <button class="tab" data-view="quiz">Quick Quiz</button>
+    <button class="tab" data-view="progress">Progress</button>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</header>
+
+<main id="app">
+
+  <!-- ============ HOME ============ -->
+  <section class="view active" id="view-home">
+    <div class="hero">
+      <h1>Get permit-ready — built around your exact age &amp; timeline.</h1>
+      <p>This trainer is tuned for a <strong>17½-year-old</strong> California applicant: the age where the DMV's rules
+        change in an important way. Everything below reflects the real California Driver Handbook and DMV testing
+        rules — not generic trivia.</p>
+    </div>
+
+    <div class="callout callout-key">
+      <div class="callout-icon">★</div>
+      <div>
+        <h3>The 17½ rule — why your age matters</h3>
+        <p>If you are <strong>at least 17½ years old</strong>, the DMV lets you get your <strong>instruction permit
+          without completing Driver Education or Driver Training</strong> first. That's a real shortcut most people
+          don't know about.</p>
+        <p>The catch: to actually get your <strong>driver's license</strong> before turning 18, you'll still need to
+          show proof of completed Driver Ed &amp; Training — <strong>or</strong> simply wait until your 18th
+          birthday, when that requirement disappears entirely. Many 17½ applicants choose to wait for 18 rather than
+          take driver's ed, since the permit itself never requires it at this age.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Your roadmap</h2>
+    <ol class="timeline">
+      <li>
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <h4>Create a MyDMV account (you + a parent/guardian)</h4>
+          <p>You and a parent or guardian each create a separate MyDMV account. They must approve your application
+            online before your appointment.</p>
+        </div>
+      </li>
+      <li>
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <h4>Start the DL/ID application &amp; schedule your appointment</h4>
+          <p>Fill out the Driver License/ID application online, upload required documents (proof of identity,
+            California residency, Social Security number), and book a DMV field office appointment.</p>
+        </div>
+      </li>
+      <li>
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <h4>Attend your appointment with a parent/guardian</h4>
+          <p>Bring your documents. You'll give a thumbprint, pass a vision exam, get your photo taken, pay the
+            application fee, and take the <strong>knowledge (written) test</strong> — 46 questions, need 38 correct
+            (≈83%) to pass. You get 3 attempts with a 7-day wait between retakes.</p>
+        </div>
+      </li>
+      <li>
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <h4>Practice — 50 supervised hours (10 at night)</h4>
+          <p>With your permit, drive only with a licensed adult who is <strong>25 or older</strong> in the front
+            passenger seat. Log at least 50 hours of practice, including 10 hours after dark, certified by your
+            parent/guardian.</p>
+        </div>
+      </li>
+      <li>
+        <div class="tl-dot">5</div>
+        <div class="tl-body">
+          <h4>Hold your permit / meet the driver's-ed requirement</h4>
+          <p>Under 18, you generally need 6 months holding your permit, plus completed Driver Ed &amp; Training,
+            before testing. At 17½+, you can skip driver ed/training on the <em>permit</em> — but you'll need it (or
+            to simply turn 18) before the actual license.</p>
+        </div>
+      </li>
+      <li>
+        <div class="tl-dot">6</div>
+        <div class="tl-body">
+          <h4>Pass the behind-the-wheel drive test</h4>
+          <p>Bring a registered, insured, mechanically sound vehicle and a licensed driver 25+. 3 attempts allowed,
+            14-day wait between retakes, $9 retest fee.</p>
+        </div>
+      </li>
+      <li>
+        <div class="tl-dot">7</div>
+        <div class="tl-body">
+          <h4>Drive on a provisional license (first 12 months)</h4>
+          <p>No driving 11 p.m.–5 a.m. and no passengers under 20, unless a licensed driver 25+ rides along — with
+            documented exceptions for school, work, or medical needs. No cell phone use at all, even hands-free.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h2 class="section-title">Quick facts</h2>
+    <div class="fact-grid">
+      <div class="fact-card"><div class="fact-num">15½</div><div class="fact-label">Minimum age for a permit</div></div>
+      <div class="fact-card"><div class="fact-num">46</div><div class="fact-label">Questions on the minor's written test</div></div>
+      <div class="fact-card"><div class="fact-num">38/46</div><div class="fact-label">Correct answers needed to pass (≈83%)</div></div>
+      <div class="fact-card"><div class="fact-num">3</div><div class="fact-label">Attempts before you must reapply</div></div>
+      <div class="fact-card"><div class="fact-num">50 hrs</div><div class="fact-label">Supervised practice required (10 at night)</div></div>
+      <div class="fact-card"><div class="fact-num">25+</div><div class="fact-label">Minimum age of your supervising driver</div></div>
+      <div class="fact-card"><div class="fact-num">0.01%</div><div class="fact-label">Zero-tolerance BAC limit under 21</div></div>
+      <div class="fact-card"><div class="fact-num">12 mo</div><div class="fact-label">Provisional curfew &amp; passenger restrictions</div></div>
+    </div>
+
+    <h2 class="section-title">What to bring to your DMV appointment</h2>
+    <ul class="checklist" id="checklist"></ul>
+
+    <div class="cta-row">
+      <button class="btn btn-primary" data-goto="exam">Start a realistic 46-question exam</button>
+      <button class="btn btn-ghost" data-goto="study">Read the study guide</button>
+    </div>
+  </section>
+
+  <!-- ============ STUDY GUIDE ============ -->
+  <section class="view" id="view-study">
+    <h1>Study Guide</h1>
+    <p class="muted">Organized by topic, straight from the California Driver Handbook. Tap a topic to expand it.</p>
+    <div id="studyAccordion" class="accordion"></div>
+  </section>
+
+  <!-- ============ SIGNS ============ -->
+  <section class="view" id="view-signs">
+    <h1>Sign Recognition</h1>
+    <p class="muted">The real test leans hard on shape + color recognition. Flip a card to check your answer, or
+      switch to quiz mode to test yourself.</p>
+    <div class="mode-switch">
+      <button class="mode-btn active" data-signmode="flash">Flashcards</button>
+      <button class="mode-btn" data-signmode="quiz">Sign Quiz</button>
+    </div>
+    <div id="signFlash" class="sign-grid"></div>
+    <div id="signQuiz" class="hidden"></div>
+  </section>
+
+  <!-- ============ PRACTICE EXAM ============ -->
+  <section class="view" id="view-exam">
+    <div id="examIntro">
+      <h1>Realistic Practice Exam</h1>
+      <p class="muted">Simulates the real DMV knowledge test given to applicants under 18: <strong>46 questions</strong>,
+        drawn at random from every topic, in the same style as the in-office computer terminal — you'll see whether
+        each answer is right or wrong immediately, and you can't go back once you answer.</p>
+      <ul class="rules-list">
+        <li>46 multiple-choice questions, one at a time</li>
+        <li>Pass score: <strong>38 correct (83%)</strong> — matching the real minor's test</li>
+        <li>No skipping back, no handbook, no notes — just like the real terminal</li>
+        <li>Full score breakdown and topic-by-topic review at the end</li>
+      </ul>
+      <button class="btn btn-primary" id="startExamBtn">Begin Exam</button>
+    </div>
+    <div id="examRunning" class="hidden"></div>
+    <div id="examResults" class="hidden"></div>
+  </section>
+
+  <!-- ============ QUICK QUIZ ============ -->
+  <section class="view" id="view-quiz">
+    <div id="quizSetup">
+      <h1>Quick Quiz</h1>
+      <p class="muted">Low-pressure practice. Pick a topic and see the explanation right after every question.</p>
+      <div class="field-row">
+        <label for="quizCategory">Topic</label>
+        <select id="quizCategory">
+          <option value="all">All Topics (mixed)</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <label for="quizLength">How many questions?</label>
+        <select id="quizLength">
+          <option value="10">10</option>
+          <option value="15" selected>15</option>
+          <option value="25">25</option>
+          <option value="46">46</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" id="startQuizBtn">Start Quiz</button>
+    </div>
+    <div id="quizRunning" class="hidden"></div>
+    <div id="quizResults" class="hidden"></div>
+  </section>
+
+  <!-- ============ PROGRESS ============ -->
+  <section class="view" id="view-progress">
+    <h1>Your Progress</h1>
+    <p class="muted">Stored only on this device (localStorage) — nothing is uploaded anywhere.</p>
+    <div id="progressSummary" class="fact-grid"></div>
+    <h2 class="section-title">Accuracy by topic</h2>
+    <div id="progressBars" class="bar-list"></div>
+    <h2 class="section-title">Attempt history</h2>
+    <div id="progressHistory" class="history-list"></div>
+    <button class="btn btn-ghost" id="resetProgressBtn">Reset all progress</button>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Educational tool only — not affiliated with or endorsed by the California DMV. Always confirm current rules,
+  fees, and appointment requirements at <span>dmv.ca.gov</span> before your visit.
+</footer>
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
