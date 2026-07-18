@@ -7,11 +7,15 @@
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return { attempts: [], categoryStats: {} };
+      if (!raw) return { attempts: [], categoryStats: {}, age: "teen" };
       const parsed = JSON.parse(raw);
-      return { attempts: parsed.attempts || [], categoryStats: parsed.categoryStats || {} };
+      return {
+        attempts: parsed.attempts || [],
+        categoryStats: parsed.categoryStats || {},
+        age: parsed.age || "teen",
+      };
     } catch (e) {
-      return { attempts: [], categoryStats: {} };
+      return { attempts: [], categoryStats: {}, age: "teen" };
     }
   }
   function saveState(state) {
@@ -51,26 +55,216 @@
     document.getElementById("tabs").classList.toggle("open");
   });
 
-  // ---------------- Home checklist ----------------
-  const CHECKLIST_ITEMS = [
+  // ---------------- Age profiles ----------------
+  const MINOR_CHECKLIST = [
     "Completed Driver's License/ID application (submitted online via MyDMV)",
     "Parent or guardian's MyDMV approval on file",
     "Proof of identity (passport, certified birth certificate, or permanent resident card)",
     "Social Security number",
     "Two proofs of California residency (unless already on file)",
-    "Driver Education completion certificate — unless you are 17½ or older",
+    "Driver Education completion certificate",
     "Parent/guardian present to sign in person",
     "Application fee",
     "Glasses or contacts if you need them for the vision exam",
   ];
-  (function renderChecklist() {
+
+  const AGE_PROFILES = {
+    under: {
+      label: "Under 15½",
+      note: "Not eligible for a permit yet — but this is the perfect prep window. Everything you learn here applies the day you turn 15½.",
+      subtitle: "The path ahead for a future applicant (under 15½).",
+      exam: { total: 46, pass: 38, who: "applicants under 18" },
+      callout: {
+        title: "Use the wait to get ahead",
+        html: "<p>The minimum age to apply for a California instruction permit is <strong>15½</strong>. You can't apply yet — but you <strong>can</strong> complete Driver Education early so the certificate is ready the day you're eligible, and you can master the knowledge test material now.</p><p>Everything in the Study Guide, Signs, and Practice Exam sections is exactly what you'll face at the DMV.</p>",
+      },
+      roadmap: [
+        { h: "Master the handbook now", p: "Work through the Study Guide and Practice Exams here. The knowledge test is the same one you'll take at 15½ — 46 questions, 38 correct to pass." },
+        { h: "Complete Driver Education early", p: "The classroom/online Driver Ed course can be finished before you turn 15½, so your completion certificate is ready for your application." },
+        { h: "At 15½: start your application", p: "You and a parent/guardian create MyDMV accounts, submit the application with parent approval, and book your DMV appointment. From there, follow the 15½–17½ path." },
+      ],
+      facts: [
+        { num: "15½", label: "Minimum age to apply for a permit" },
+        { num: "46", label: "Questions on the knowledge test you'll take" },
+        { num: "38/46", label: "Correct answers needed to pass (≈83%)" },
+        { num: "Now", label: "Best time to finish Driver Ed and start studying" },
+      ],
+      checklist: MINOR_CHECKLIST,
+    },
+    teen: {
+      label: "15½ – 17½",
+      note: "The standard teen path: Driver Ed before the permit, then driver training, 50 practice hours, and a 6-month permit hold before the drive test.",
+      subtitle: "The standard path for a teen applicant (15½ to 17½).",
+      exam: { total: 46, pass: 38, who: "applicants under 18" },
+      callout: {
+        title: "Driver Ed comes first",
+        html: "<p>At this age, you must complete <strong>Driver Education</strong> (classroom or online) and present the completion certificate <strong>before</strong> you can get your instruction permit.</p><p>After the permit: <strong>6 hours</strong> of professional driver training, <strong>50 hours</strong> of supervised practice (10 at night), and a minimum <strong>6-month</strong> permit hold before you can take the drive test.</p>",
+      },
+      roadmap: [
+        { h: "Complete Driver Education", p: "Finish the classroom or online course and get your completion certificate — required before the permit at this age." },
+        { h: "Create MyDMV accounts (you + a parent/guardian)", p: "You each create a separate MyDMV account. Your parent/guardian must approve your application online before the appointment." },
+        { h: "Start the DL application & schedule your appointment", p: "Fill out the application online, upload proof of identity, California residency, and your Social Security number, then book a field office visit." },
+        { h: "Attend your appointment with a parent/guardian", p: "Thumbprint, vision exam, photo, application fee, and the knowledge test — 46 questions, 38 correct (≈83%) to pass. 3 attempts, 7-day wait between retakes." },
+        { h: "Practice — 50 supervised hours (10 at night)", p: "Drive only with a licensed adult 25 or older in the front passenger seat. Complete 6 hours of professional driver training, and log 50 practice hours certified by your parent/guardian." },
+        { h: "Hold your permit at least 6 months", p: "The DMV requires a minimum 6-month holding period before you're eligible for the behind-the-wheel test." },
+        { h: "Pass the behind-the-wheel drive test", p: "Bring a registered, insured, mechanically sound vehicle and a licensed driver 25+. 3 attempts allowed, 14-day wait between retakes, retest fee applies." },
+        { h: "Drive on a provisional license (first 12 months)", p: "No driving 11 p.m.–5 a.m. and no passengers under 20 unless a licensed driver 25+ rides along (documented school/work/medical exceptions exist). No cell phone use at all, even hands-free." },
+      ],
+      facts: [
+        { num: "15½", label: "Minimum age for a permit" },
+        { num: "46", label: "Questions on the minor's written test" },
+        { num: "38/46", label: "Correct answers needed to pass (≈83%)" },
+        { num: "3", label: "Attempts before you must reapply" },
+        { num: "6 mo", label: "Minimum permit holding period" },
+        { num: "50 hrs", label: "Supervised practice required (10 at night)" },
+        { num: "25+", label: "Minimum age of your supervising driver" },
+        { num: "12 mo", label: "Provisional curfew & passenger restrictions" },
+      ],
+      checklist: MINOR_CHECKLIST,
+    },
+    shortcut: {
+      label: "17½ – 18",
+      note: "A special window: you can get the permit with no Driver Ed/Training — but the license itself still needs them, or your 18th birthday.",
+      subtitle: "The shortcut window for applicants between 17½ and 18.",
+      exam: { total: 46, pass: 38, who: "applicants under 18" },
+      callout: {
+        title: "The 17½ rule — why this window matters",
+        html: "<p>If you are <strong>at least 17½ years old</strong>, the DMV lets you get your <strong>instruction permit without completing Driver Education or Driver Training</strong> first. That's a real shortcut most people don't know about.</p><p>The catch: to actually get your <strong>driver's license</strong> before turning 18, you'll still need to show proof of completed Driver Ed &amp; Training — <strong>or</strong> simply wait until your 18th birthday, when that requirement disappears entirely. Many 17½ applicants choose to wait for 18 rather than take driver's ed, since the permit itself never requires it at this age.</p>",
+      },
+      roadmap: [
+        { h: "Create a MyDMV account (you + a parent/guardian)", p: "You and a parent or guardian each create a separate MyDMV account. They must approve your application online before your appointment." },
+        { h: "Start the DL/ID application & schedule your appointment", p: "Fill out the Driver License/ID application online, upload required documents (proof of identity, California residency, Social Security number), and book a DMV field office appointment." },
+        { h: "Attend your appointment with a parent/guardian", p: "Bring your documents. You'll give a thumbprint, pass a vision exam, get your photo taken, pay the application fee, and take the knowledge test — 46 questions, 38 correct (≈83%) to pass. 3 attempts with a 7-day wait between retakes." },
+        { h: "Practice — 50 supervised hours (10 at night)", p: "With your permit, drive only with a licensed adult who is 25 or older in the front passenger seat. Log at least 50 hours of practice, including 10 at night, certified by your parent/guardian." },
+        { h: "Hold your permit / meet the driver's-ed requirement", p: "Under 18, you generally need 6 months holding your permit, plus completed Driver Ed & Training, before testing. At 17½+, you can skip driver ed/training on the permit — but you'll need it (or to simply turn 18) before the actual license." },
+        { h: "Pass the behind-the-wheel drive test", p: "Bring a registered, insured, mechanically sound vehicle and a licensed driver 25+. 3 attempts allowed, 14-day wait between retakes, retest fee applies." },
+        { h: "Drive on a provisional license (first 12 months)", p: "No driving 11 p.m.–5 a.m. and no passengers under 20, unless a licensed driver 25+ rides along — with documented exceptions for school, work, or medical needs. No cell phone use at all, even hands-free." },
+      ],
+      facts: [
+        { num: "17½", label: "Permit with no Driver Ed required" },
+        { num: "46", label: "Questions on the minor's written test" },
+        { num: "38/46", label: "Correct answers needed to pass (≈83%)" },
+        { num: "3", label: "Attempts before you must reapply" },
+        { num: "50 hrs", label: "Supervised practice required (10 at night)" },
+        { num: "25+", label: "Minimum age of your supervising driver" },
+        { num: "0.01%", label: "Zero-tolerance BAC limit under 21" },
+        { num: "18", label: "Age when the Driver Ed requirement disappears" },
+      ],
+      checklist: [
+        "Completed Driver's License/ID application (submitted online via MyDMV)",
+        "Parent or guardian's MyDMV approval on file",
+        "Proof of identity (passport, certified birth certificate, or permanent resident card)",
+        "Social Security number",
+        "Two proofs of California residency (unless already on file)",
+        "Driver Education certificate NOT required — you're 17½ or older",
+        "Parent/guardian present to sign in person",
+        "Application fee",
+        "Glasses or contacts if you need them for the vision exam",
+      ],
+    },
+    adult: {
+      label: "18+",
+      note: "The adult path is the shortest: no Driver Ed, no parent approval, no holding period — and a shorter 36-question test.",
+      subtitle: "The streamlined path for adult applicants (18 and older).",
+      exam: { total: 36, pass: 30, who: "adult (18+) first-time applicants" },
+      callout: {
+        title: "The adult path — fewer requirements",
+        html: "<p>At 18+, you need <strong>no Driver Education, no Driver Training, and no parent/guardian approval</strong>. There's no mandatory permit holding period and no 50-hour practice log — you take the drive test whenever you're ready.</p><p>The knowledge test is also shorter: <strong>36 questions, 30 correct to pass</strong>. One thing that doesn't change: if you're under 21, California's zero-tolerance alcohol law (0.01% BAC) still applies to you.</p>",
+      },
+      roadmap: [
+        { h: "Create a MyDMV account & complete the application", p: "Fill out the Driver License/ID application online and upload proof of identity, California residency, and your Social Security number. No parent approval needed." },
+        { h: "Attend your DMV appointment", p: "Thumbprint, vision exam, photo, application fee, and the knowledge test — 36 questions, 30 correct to pass. 3 attempts with a 7-day wait between retakes." },
+        { h: "Practice with your permit as needed", p: "An accompanying licensed driver 18 or older must be in the front seat while you practice. There's no minimum holding period or required hour log for adults." },
+        { h: "Pass the behind-the-wheel drive test", p: "Schedule it whenever you feel ready. Bring a registered, insured, mechanically sound vehicle. 3 attempts allowed, 14-day wait between retakes." },
+        { h: "Get your full license", p: "No provisional curfew or passenger restrictions apply at 18+. Under 21? The 0.01% zero-tolerance BAC limit and alcohol transport rules still apply until your 21st birthday." },
+      ],
+      facts: [
+        { num: "18+", label: "No Driver Ed or parent approval required" },
+        { num: "36", label: "Questions on the adult written test" },
+        { num: "30/36", label: "Correct answers needed to pass (≈83%)" },
+        { num: "3", label: "Attempts before you must reapply" },
+        { num: "None", label: "Required permit holding period" },
+        { num: "18+", label: "Minimum age of your accompanying driver" },
+        { num: "0.01%", label: "Zero-tolerance BAC if you're under 21" },
+        { num: "12 mo", label: "Application validity window" },
+      ],
+      checklist: [
+        "Completed Driver's License/ID application (submitted online via MyDMV)",
+        "Proof of identity (passport, certified birth certificate, or permanent resident card)",
+        "Social Security number",
+        "Two proofs of California residency (unless already on file)",
+        "Application fee",
+        "Glasses or contacts if you need them for the vision exam",
+      ],
+    },
+  };
+
+  function currentProfile() {
+    return AGE_PROFILES[state.age] || AGE_PROFILES.teen;
+  }
+
+  function setAge(age) {
+    if (!AGE_PROFILES[age]) return;
+    state.age = age;
+    saveState(state);
+    renderAgeUI();
+  }
+
+  function renderAgeUI() {
+    const p = currentProfile();
+
+    document.querySelectorAll(".age-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.age === state.age);
+    });
+    document.getElementById("ageNote").textContent = p.note;
+    document.getElementById("navExamDesc").textContent =
+      `A full simulated DMV knowledge test: ${p.exam.total} questions, ${p.exam.pass} to pass — the real format for ${p.exam.who}.`;
+
+    // Rules view
+    document.getElementById("rulesSubtitle").textContent = p.subtitle;
+    document.getElementById("rulesCallout").innerHTML = `
+      <div class="callout callout-key">
+        <div class="callout-icon">★</div>
+        <div>
+          <h3>${p.callout.title}</h3>
+          ${p.callout.html}
+        </div>
+      </div>`;
+    document.getElementById("rulesTimeline").innerHTML = p.roadmap.map((step, i) => `
+      <li>
+        <div class="tl-dot">${i + 1}</div>
+        <div class="tl-body">
+          <h4>${step.h}</h4>
+          <p>${step.p}</p>
+        </div>
+      </li>`).join("");
+    document.getElementById("rulesFacts").innerHTML = p.facts.map(f => `
+      <div class="fact-card"><div class="fact-num">${f.num}</div><div class="fact-label">${f.label}</div></div>`).join("");
     const ul = document.getElementById("checklist");
-    CHECKLIST_ITEMS.forEach(text => {
+    ul.innerHTML = "";
+    p.checklist.forEach(text => {
       const li = document.createElement("li");
       li.textContent = text;
       ul.appendChild(li);
     });
-  })();
+    document.getElementById("rulesExamCta").textContent = `Start a realistic ${p.exam.total}-question exam`;
+
+    // Exam intro
+    document.getElementById("examIntroDesc").innerHTML =
+      `Simulates the real DMV knowledge test given to ${p.exam.who}: <strong>${p.exam.total} questions</strong>, ` +
+      `drawn at random from every topic, in the same style as the in-office computer terminal — you'll see whether ` +
+      `each answer is right or wrong immediately, and you can't go back once you answer.`;
+    document.getElementById("examIntroRules").innerHTML = `
+      <li>${p.exam.total} multiple-choice questions, one at a time</li>
+      <li>Pass score: <strong>${p.exam.pass} correct (≈83%)</strong> — matching the real test for ${p.exam.who}</li>
+      <li>No skipping back, no handbook, no notes — just like the real terminal</li>
+      <li>Full score breakdown and topic-by-topic review at the end</li>`;
+  }
+
+  document.querySelectorAll(".age-btn").forEach(btn => {
+    btn.addEventListener("click", () => setAge(btn.dataset.age));
+  });
+  renderAgeUI();
 
   // ---------------- Study guide ----------------
   const STUDY_INTROS = {
@@ -364,12 +558,13 @@
   function startExam() {
     examIntro.classList.add("hidden");
     examResults.classList.add("hidden");
-    const questions = pickRealisticExamSet();
+    const profile = currentProfile();
+    const questions = pickRealisticExamSet().slice(0, profile.exam.total);
     buildQuizRunner({
       containerRunning: examRunning,
       containerResults: examResults,
       questions,
-      passThreshold: 38,
+      passThreshold: profile.exam.pass,
       mode: "exam",
       onRestart: () => {
         examResults.classList.add("hidden");
@@ -419,13 +614,13 @@
     const summary = document.getElementById("progressSummary");
     const attempts = state.attempts;
     const examAttempts = attempts.filter(a => a.mode === "exam");
-    const bestExam = examAttempts.reduce((best, a) => (!best || a.score > best.score ? a : best), null);
+    const bestExam = examAttempts.reduce((best, a) => (!best || a.score / a.total > best.score / best.total ? a : best), null);
     const passCount = examAttempts.filter(a => a.passed).length;
     summary.innerHTML = `
       <div class="fact-card"><div class="fact-num">${attempts.length}</div><div class="fact-label">Total sessions</div></div>
       <div class="fact-card"><div class="fact-num">${examAttempts.length}</div><div class="fact-label">Full practice exams</div></div>
-      <div class="fact-card"><div class="fact-num">${passCount}</div><div class="fact-label">Exams passed (38+/46)</div></div>
-      <div class="fact-card"><div class="fact-num">${bestExam ? bestExam.score + "/46" : "—"}</div><div class="fact-label">Best exam score</div></div>`;
+      <div class="fact-card"><div class="fact-num">${passCount}</div><div class="fact-label">Exams passed</div></div>
+      <div class="fact-card"><div class="fact-num">${bestExam ? bestExam.score + "/" + bestExam.total : "—"}</div><div class="fact-label">Best exam score</div></div>`;
 
     const barList = document.getElementById("progressBars");
     const cats = Object.keys(CATEGORY_LABELS).filter(c => state.categoryStats[c] && state.categoryStats[c].total > 0);

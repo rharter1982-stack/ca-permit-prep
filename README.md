@@ -1,15 +1,16 @@
 # CA Permit Prep
 
-A standalone study guide and realistic practice-test app for the **California DMV learner's permit** (instruction permit), tuned for applicants who are **17½ or older** — the age where the DMV lets you get a permit without Driver Education/Training certificates.
+A standalone study guide and realistic practice-test app for the **California DMV learner's permit** (instruction permit). Pick your age bracket — Under 15½, 15½–17½, 17½–18, or 18+ — and the rules, roadmap, checklist, and even the exam format adjust to match.
 
 **Live app:** https://rharter1982-stack.github.io/ca-permit-prep/
 
 ## Features
 
-- **Home / Roadmap** — step-by-step path from MyDMV account to provisional license, with the 17½-rule explained, key numbers, and a DMV appointment checklist
+- **Home** — age selector plus one-tap navigation cards to every section
+- **Rules & Requirements** — age-tailored step-by-step roadmap, key numbers, and DMV appointment checklist (including the little-known 17½ rule that waives Driver Ed for the permit)
 - **Study Guide** — 14 topics of handbook-accurate facts (signs, right-of-way, speed limits, parking, railroad crossings, school buses, DUI/zero-tolerance, provisional restrictions, testing process)
 - **Sign Recognition** — flashcards and a quiz built from SVG shapes/colors (no copyrighted sign images)
-- **Practice Exam** — mirrors the real 46-question minor's knowledge test: 38/46 to pass, one question at a time, immediate right/wrong feedback, no going back, full missed-question review at the end
+- **Practice Exam** — mirrors the real DMV knowledge test for your age bracket: 46 questions / 38 to pass for minors, 36 questions / 30 to pass for adults; one question at a time, immediate right/wrong feedback, no going back, full missed-question review at the end
 - **Quick Quiz** — pick a topic and length, relaxed practice with instant explanations
 - **Progress** — attempt history and per-topic accuracy, stored only in your browser's `localStorage`
 

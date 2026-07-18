@@ -20,6 +20,7 @@
   </div>
   <nav class="tabs" id="tabs">
     <button class="tab active" data-view="home">Home</button>
+    <button class="tab" data-view="rules">Rules</button>
     <button class="tab" data-view="study">Study Guide</button>
     <button class="tab" data-view="signs">Signs</button>
     <button class="tab" data-view="exam">Practice Exam</button>
@@ -34,106 +35,82 @@
   <!-- ============ HOME ============ -->
   <section class="view active" id="view-home">
     <div class="hero">
-      <h1>Get permit-ready — built around your exact age &amp; timeline.</h1>
-      <p>This trainer is tuned for a <strong>17½-year-old</strong> California applicant: the age where the DMV's rules
-        change in an important way. Everything below reflects the real California Driver Handbook and DMV testing
-        rules — not generic trivia.</p>
+      <h1>California Permit Prep</h1>
+      <p>Everything you need to get your California instruction permit and pass the real DMV knowledge test —
+        rules, study guide, sign practice, and a realistic exam simulator. Built from the California Driver
+        Handbook and official DMV publications.</p>
     </div>
 
-    <div class="callout callout-key">
-      <div class="callout-icon">★</div>
-      <div>
-        <h3>The 17½ rule — why your age matters</h3>
-        <p>If you are <strong>at least 17½ years old</strong>, the DMV lets you get your <strong>instruction permit
-          without completing Driver Education or Driver Training</strong> first. That's a real shortcut most people
-          don't know about.</p>
-        <p>The catch: to actually get your <strong>driver's license</strong> before turning 18, you'll still need to
-          show proof of completed Driver Ed &amp; Training — <strong>or</strong> simply wait until your 18th
-          birthday, when that requirement disappears entirely. Many 17½ applicants choose to wait for 18 rather than
-          take driver's ed, since the permit itself never requires it at this age.</p>
-      </div>
+    <h2 class="section-title">How old are you?</h2>
+    <p class="muted">The DMV's rules, requirements, and even the real test format change with your age. Pick your
+      bracket and every section adjusts to match.</p>
+    <div class="age-switch" id="ageSwitch">
+      <button class="age-btn" data-age="under">Under 15½</button>
+      <button class="age-btn" data-age="teen">15½ – 17½</button>
+      <button class="age-btn" data-age="shortcut">17½ – 18</button>
+      <button class="age-btn" data-age="adult">18+</button>
     </div>
+    <div class="age-note" id="ageNote"></div>
+
+    <h2 class="section-title">Jump in</h2>
+    <div class="nav-grid">
+      <button class="nav-card" data-goto="rules">
+        <span class="nav-emoji">📋</span>
+        <span class="nav-name">Rules &amp; Requirements</span>
+        <span class="nav-desc">Your step-by-step roadmap, key numbers, and DMV appointment checklist — tailored to your age.</span>
+      </button>
+      <button class="nav-card" data-goto="study">
+        <span class="nav-emoji">📖</span>
+        <span class="nav-name">Study Guide</span>
+        <span class="nav-desc">14 topics of handbook facts: right-of-way, speed limits, parking, DUI laws, and more.</span>
+      </button>
+      <button class="nav-card" data-goto="signs">
+        <span class="nav-emoji">🛑</span>
+        <span class="nav-name">Road Signs</span>
+        <span class="nav-desc">Flashcards and a quiz on sign shapes and colors — a big part of the real test.</span>
+      </button>
+      <button class="nav-card" data-goto="exam">
+        <span class="nav-emoji">📝</span>
+        <span class="nav-name">Practice Exam</span>
+        <span class="nav-desc" id="navExamDesc">A full simulated DMV knowledge test, matched to your age bracket's real format.</span>
+      </button>
+      <button class="nav-card" data-goto="quiz">
+        <span class="nav-emoji">⚡</span>
+        <span class="nav-name">Quick Quiz</span>
+        <span class="nav-desc">Low-pressure practice by topic with instant explanations after every question.</span>
+      </button>
+      <button class="nav-card" data-goto="progress">
+        <span class="nav-emoji">📈</span>
+        <span class="nav-name">Progress</span>
+        <span class="nav-desc">Attempt history and accuracy by topic, saved on this device.</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ RULES ============ -->
+  <section class="view" id="view-rules">
+    <h1>Rules &amp; Requirements</h1>
+    <p class="muted" id="rulesSubtitle"></p>
+    <div class="age-switch age-switch-compact" id="ageSwitchRules">
+      <button class="age-btn" data-age="under">Under 15½</button>
+      <button class="age-btn" data-age="teen">15½ – 17½</button>
+      <button class="age-btn" data-age="shortcut">17½ – 18</button>
+      <button class="age-btn" data-age="adult">18+</button>
+    </div>
+
+    <div id="rulesCallout"></div>
 
     <h2 class="section-title">Your roadmap</h2>
-    <ol class="timeline">
-      <li>
-        <div class="tl-dot">1</div>
-        <div class="tl-body">
-          <h4>Create a MyDMV account (you + a parent/guardian)</h4>
-          <p>You and a parent or guardian each create a separate MyDMV account. They must approve your application
-            online before your appointment.</p>
-        </div>
-      </li>
-      <li>
-        <div class="tl-dot">2</div>
-        <div class="tl-body">
-          <h4>Start the DL/ID application &amp; schedule your appointment</h4>
-          <p>Fill out the Driver License/ID application online, upload required documents (proof of identity,
-            California residency, Social Security number), and book a DMV field office appointment.</p>
-        </div>
-      </li>
-      <li>
-        <div class="tl-dot">3</div>
-        <div class="tl-body">
-          <h4>Attend your appointment with a parent/guardian</h4>
-          <p>Bring your documents. You'll give a thumbprint, pass a vision exam, get your photo taken, pay the
-            application fee, and take the <strong>knowledge (written) test</strong> — 46 questions, need 38 correct
-            (≈83%) to pass. You get 3 attempts with a 7-day wait between retakes.</p>
-        </div>
-      </li>
-      <li>
-        <div class="tl-dot">4</div>
-        <div class="tl-body">
-          <h4>Practice — 50 supervised hours (10 at night)</h4>
-          <p>With your permit, drive only with a licensed adult who is <strong>25 or older</strong> in the front
-            passenger seat. Log at least 50 hours of practice, including 10 hours after dark, certified by your
-            parent/guardian.</p>
-        </div>
-      </li>
-      <li>
-        <div class="tl-dot">5</div>
-        <div class="tl-body">
-          <h4>Hold your permit / meet the driver's-ed requirement</h4>
-          <p>Under 18, you generally need 6 months holding your permit, plus completed Driver Ed &amp; Training,
-            before testing. At 17½+, you can skip driver ed/training on the <em>permit</em> — but you'll need it (or
-            to simply turn 18) before the actual license.</p>
-        </div>
-      </li>
-      <li>
-        <div class="tl-dot">6</div>
-        <div class="tl-body">
-          <h4>Pass the behind-the-wheel drive test</h4>
-          <p>Bring a registered, insured, mechanically sound vehicle and a licensed driver 25+. 3 attempts allowed,
-            14-day wait between retakes, $9 retest fee.</p>
-        </div>
-      </li>
-      <li>
-        <div class="tl-dot">7</div>
-        <div class="tl-body">
-          <h4>Drive on a provisional license (first 12 months)</h4>
-          <p>No driving 11 p.m.–5 a.m. and no passengers under 20, unless a licensed driver 25+ rides along — with
-            documented exceptions for school, work, or medical needs. No cell phone use at all, even hands-free.</p>
-        </div>
-      </li>
-    </ol>
+    <ol class="timeline" id="rulesTimeline"></ol>
 
     <h2 class="section-title">Quick facts</h2>
-    <div class="fact-grid">
-      <div class="fact-card"><div class="fact-num">15½</div><div class="fact-label">Minimum age for a permit</div></div>
-      <div class="fact-card"><div class="fact-num">46</div><div class="fact-label">Questions on the minor's written test</div></div>
-      <div class="fact-card"><div class="fact-num">38/46</div><div class="fact-label">Correct answers needed to pass (≈83%)</div></div>
-      <div class="fact-card"><div class="fact-num">3</div><div class="fact-label">Attempts before you must reapply</div></div>
-      <div class="fact-card"><div class="fact-num">50 hrs</div><div class="fact-label">Supervised practice required (10 at night)</div></div>
-      <div class="fact-card"><div class="fact-num">25+</div><div class="fact-label">Minimum age of your supervising driver</div></div>
-      <div class="fact-card"><div class="fact-num">0.01%</div><div class="fact-label">Zero-tolerance BAC limit under 21</div></div>
-      <div class="fact-card"><div class="fact-num">12 mo</div><div class="fact-label">Provisional curfew &amp; passenger restrictions</div></div>
-    </div>
+    <div class="fact-grid" id="rulesFacts"></div>
 
     <h2 class="section-title">What to bring to your DMV appointment</h2>
     <ul class="checklist" id="checklist"></ul>
 
     <div class="cta-row">
-      <button class="btn btn-primary" data-goto="exam">Start a realistic 46-question exam</button>
+      <button class="btn btn-primary" data-goto="exam" id="rulesExamCta">Start a realistic practice exam</button>
       <button class="btn btn-ghost" data-goto="study">Read the study guide</button>
     </div>
   </section>
@@ -162,15 +139,8 @@
   <section class="view" id="view-exam">
     <div id="examIntro">
       <h1>Realistic Practice Exam</h1>
-      <p class="muted">Simulates the real DMV knowledge test given to applicants under 18: <strong>46 questions</strong>,
-        drawn at random from every topic, in the same style as the in-office computer terminal — you'll see whether
-        each answer is right or wrong immediately, and you can't go back once you answer.</p>
-      <ul class="rules-list">
-        <li>46 multiple-choice questions, one at a time</li>
-        <li>Pass score: <strong>38 correct (83%)</strong> — matching the real minor's test</li>
-        <li>No skipping back, no handbook, no notes — just like the real terminal</li>
-        <li>Full score breakdown and topic-by-topic review at the end</li>
-      </ul>
+      <p class="muted" id="examIntroDesc"></p>
+      <ul class="rules-list" id="examIntroRules"></ul>
       <button class="btn btn-primary" id="startExamBtn">Begin Exam</button>
     </div>
     <div id="examRunning" class="hidden"></div>
