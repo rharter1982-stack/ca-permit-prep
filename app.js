@@ -40,13 +40,29 @@
   // ---------------- Navigation ----------------
   const tabs = document.querySelectorAll(".tab");
   const views = document.querySelectorAll(".view");
-  function showView(name) {
+  const VIEW_NAMES = Array.from(views).map(v => v.id.replace("view-", ""));
+
+  function currentViewName() {
+    const name = (location.hash || "#home").slice(1);
+    return VIEW_NAMES.includes(name) ? name : "home";
+  }
+
+  function renderView(name) {
     views.forEach(v => v.classList.toggle("active", v.id === "view-" + name));
     tabs.forEach(t => t.classList.toggle("active", t.dataset.view === name));
     document.getElementById("tabs").classList.remove("open");
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
     if (name === "progress") renderProgress();
   }
+
+  // The hash is the source of truth, so the browser/phone back button
+  // moves between sections naturally.
+  function showView(name) {
+    if (name === currentViewName()) renderView(name);
+    else location.hash = name;
+  }
+  window.addEventListener("hashchange", () => renderView(currentViewName()));
+
   tabs.forEach(t => t.addEventListener("click", () => showView(t.dataset.view)));
   document.querySelectorAll("[data-goto]").forEach(btn => {
     btn.addEventListener("click", () => showView(btn.dataset.goto));
@@ -54,6 +70,19 @@
   document.getElementById("menuBtn").addEventListener("click", () => {
     document.getElementById("tabs").classList.toggle("open");
   });
+
+  // In-page back button on every section except the home hub
+  views.forEach(v => {
+    if (v.id === "view-home") return;
+    const btn = document.createElement("button");
+    btn.className = "back-btn";
+    btn.type = "button";
+    btn.innerHTML = "&#8592; Home";
+    btn.addEventListener("click", () => showView("home"));
+    v.prepend(btn);
+  });
+
+  renderView(currentViewName());
 
   // ---------------- Age profiles ----------------
   const MINOR_CHECKLIST = [
